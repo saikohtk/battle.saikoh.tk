@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/saikoh-tk/saikoh-tk/issues"
   },
-  "homepage": "https://github.com/saikoh-tk/saikoh-tk#readme"
+  "homepage": "https://github.com/saikoh-tk/saikoh-tk#readme",
+  "dependencies": {
+    "node-static": "^0.7.7",
+    "redis": "^2.4.2",
+    "ws": "^0.8.1"
+  }
 }
