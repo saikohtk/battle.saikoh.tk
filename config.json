@@ -1,0 +1,7 @@
+{
+  "counters": [
+    { "name": "saikoh", "title": "最高" }
+  ],
+  "redis": {
+  }
+}
