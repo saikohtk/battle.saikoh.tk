@@ -57,7 +57,7 @@
           ])
         ])
       );
-      counters[counter.name] = {
+      counters[counter.counter_name] = {
         update: function (value) {
           $value.nodeValue = value;
         }
