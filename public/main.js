@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var audioContext = new AudioContext();
+
   function E (tagName, attrs, children) {
     var el = document.createElement(tagName);
     attrs = attrs || {};
@@ -41,6 +43,20 @@
     case 'changed':
       counters[signal.name].update(signal.counter_value);
       break;
+    }
+  }
+
+  function fetchAudio (path) {
+    return new Promise(resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('GET', path, true);
+      request.responseType = 'arraybuffer';
+      request.onload = function () {
+        resolve(request.response);
+      };
+      request.onerror = function () {
+        reject(err)
+      };
     }
   }
 
