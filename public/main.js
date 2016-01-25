@@ -57,6 +57,8 @@
       request.onerror = function () {
         reject(err)
       };
+
+      request.send();
     });
   }
 
@@ -74,16 +76,18 @@
         ])
       );
       counters[counter.counter_name] = {
-        source: audioContext.createBufferSource(),
         play: function () {
-          audioContext.play(this.source);
+          var source = audioContext.createBufferSource();
+          source.connect(audioContext.destination);
+          source.buffer = this.buffer;
+          source.start();
         },
         update: function (value) {
           $value.nodeValue = value;
         }
       };
 
-      fetchAudio("/audio/" + counter.name + ".mp3").then(function (data) {
+      fetchAudio("/audio/" + counter.counter_name + ".mp3").then(function (data) {
         audioContext.decodeAudioData(data, function (buffer) {
           counters[counter.counter_name].buffer = buffer;
         });
@@ -91,7 +95,7 @@
 
       $btn.addEventListener('click', function (e) {
         cmd.countup(counter.counter_name);
-        counter.play();
+        counters[counter.counter_name].play();
       }, false);
       return $elem;
     }, {});
