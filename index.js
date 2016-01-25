@@ -49,7 +49,11 @@ wss.on('connection', (ws) => {
   winston.info('connected');
   Promise.all(Array.from(COUNTERS.entries()).map(([name, title]) => {
     return redisCmd.get(name).then((value) => {
-      return {name, title, count: value || 0};
+      return {
+        counter_name: name,
+        counter_title: title,
+        counter_value: value || 0
+      };
     });
   })).then((counters) => {
     ws.send(JSON.stringify({
@@ -78,9 +82,9 @@ subscriber.on('message', (channel, name) => {
   redisCmd.get(name).then((value) => {
     for (let client of wss.clients) {
       client.send(JSON.stringify({
-        type: 'update',
-        name: name,
-        value: value || 0
+        type: 'changed',
+        counter_name: name,
+        counter_value: value || 0
       }));
     }
   });

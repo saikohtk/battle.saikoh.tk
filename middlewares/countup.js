@@ -21,10 +21,10 @@ class Countup extends MiddlewareBase {
   }
 
   process(message) {
-    if (!message.hasOwnProperty('name')) {
+    if (!message.hasOwnProperty('counter_name')) {
       return Promise.reject(new Error('[Counter] message has no counter field'));
     }
-    let counterName = message['name'];
+    let counterName = message['counter_name'];
     if (!this.counters.has(counterName)) {
       return Promise.reject(new Error('[Counter] no such counter'));
     }

@@ -28,7 +28,7 @@
     };
     return {
       countup: function (name) {
-        ws.send(JSON.stringify({type: 'countup', name: name}));
+        ws.send(JSON.stringify({type: 'update', counter_name: name}));
       }
     };
   }();
@@ -38,22 +38,22 @@
     case 'counters':
       construct(signal.counters);
       break;
-    case 'update':
-      counters[signal.name].update(signal.value);
+    case 'changed':
+      counters[signal.name].update(signal.counter_value);
       break;
     }
   }
 
   function construct (receivedCounters) {
     var $counters = receivedCounters.map(function (counter) {
-      var $value = T(counter.count.toString());
+      var $value = T(counter.counter_value.toString());
       var $btn = E('img', { src: 'http://placehold.it/300x300' });
       var $elem = (
         E('tr', {}, [
           E('td', {}, [$btn]),
           E('td', {}, [
             E('span', { class: 'count' }, [$value]),
-            T(counter.title)
+            T(counter.counter_title)
           ])
         ])
       );
@@ -63,7 +63,7 @@
         }
       };
       $btn.addEventListener('click', function (e) {
-        cmd.countup(counter.name);
+        cmd.countup(counter.counter_name);
       }, false);
       return $elem;
     }, {});
