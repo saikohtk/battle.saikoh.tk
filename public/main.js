@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  var audioContext = new AudioContext();
+
   function E (tagName, attrs, children) {
     var el = document.createElement(tagName);
     attrs = attrs || {};
@@ -44,6 +46,20 @@
     }
   }
 
+  function fetchAudio (path) {
+    return new Promise(function(resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('GET', path, true);
+      request.responseType = 'arraybuffer';
+      request.onload = function () {
+        resolve(request.response);
+      };
+      request.onerror = function () {
+        reject(err)
+      };
+    });
+  }
+
   function construct (receivedCounters) {
     var $counters = receivedCounters.map(function (counter) {
       var $value = T(counter.counter_value.toString());
@@ -58,12 +74,24 @@
         ])
       );
       counters[counter.counter_name] = {
+        source: audioContext.createBufferSource(),
+        play: function () {
+          audioContext.play(this.source);
+        },
         update: function (value) {
           $value.nodeValue = value;
         }
       };
+
+      fetchAudio("/audio/" + counter.name + ".mp3").then(function (data) {
+        audioContext.decodeAudioData(data, function (buffer) {
+          counters[counter.counter_name].buffer = buffer;
+        });
+      });
+
       $btn.addEventListener('click', function (e) {
         cmd.countup(counter.counter_name);
+        counter.play();
       }, false);
       return $elem;
     }, {});
