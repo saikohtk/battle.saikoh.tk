@@ -17,8 +17,8 @@ const redisClient = redis.createClient(CONFIG.redis.url || process.env.REDIS_URL
 const redisCmd = ['get', 'incr']
         .map((cmd) => [cmd, promisify(redisClient[cmd].bind(redisClient))])
         .reduce((obj, [cmd, method]) => Object.assign(obj, {[cmd]: method}), {});
-const publisher = redis.createClient(CONFIG.redis);
-const subscriber = redis.createClient(CONFIG.redis);
+const publisher = redis.createClient(CONFIG.redis.url || process.env.REDIS_URL);
+const subscriber = redis.createClient(CONFIG.redis.url || process.env.REDIS_URL);
 
 const middlewares = require('./middlewares');
 
