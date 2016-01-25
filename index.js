@@ -13,9 +13,7 @@ const WebSocketServer = ws.Server;
 winston.level = 'debug';
 
 const redis = require('redis');
-const redisClient = redis.createClient({
-  url: CONFIG.redis.url || process.env.REDIS_URL
-});
+const redisClient = redis.createClient(CONFIG.redis.url || process.env.REDIS_URL);
 const redisCmd = ['get', 'incr']
         .map((cmd) => [cmd, promisify(redisClient[cmd].bind(redisClient))])
         .reduce((obj, [cmd, method]) => Object.assign(obj, {[cmd]: method}), {});
