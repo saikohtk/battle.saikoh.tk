@@ -39,7 +39,7 @@
       construct(signal.counters);
       break;
     case 'changed':
-      counters[signal.name].update(signal.counter_value);
+      counters[signal.counter_name].update(signal.counter_value);
       break;
     }
   }
