@@ -91,13 +91,8 @@
       $btn.addEventListener('click', function (e) {
         cmd.countup(counter.counter_name);
         counters[counter.counter_name].play();
-        window.navigator.vibrate(100);  
+        window.navigator.vibrate(100);
       }, false);
-      return $elem;
     }, {});
-    while (document.body.firstChild) {
-      document.body.removeChild(document.body.firstChild);
-    }
-    document.body.appendChild(E('table', {}, $counters));
   }
 })();
