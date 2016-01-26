@@ -88,11 +88,14 @@
         $btn.removeAttribute('disabled');
       });
 
-      $btn.addEventListener('click', function (e) {
+      function onClick (e) {
         cmd.countup(counter.counter_name);
         counters[counter.counter_name].play();
         window.navigator.vibrate(100);
-      }, false);
+      }
+
+      $btn.addEventListener('touchstart', function (e) { e.stopPropagation(); e.preventDefault(); onClick(); } , false);
+      $btn.addEventListener('click', onClick, false);
     }, {});
   }
 })();
