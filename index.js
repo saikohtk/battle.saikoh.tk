@@ -90,5 +90,5 @@ subscriber.on('message', (channel, name) => {
   });
 });
 
-server.listen(PORT);
+server.listen(PORT, '0.0.0.0');
 winston.info(`started listening on port ${PORT}`);
