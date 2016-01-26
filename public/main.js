@@ -65,16 +65,7 @@
   function construct (receivedCounters) {
     var $counters = receivedCounters.map(function (counter) {
       var $value = T(counter.counter_value.toString());
-      var $btn = E('img', { src: 'http://placehold.it/300x300' });
-      var $elem = (
-        E('tr', {}, [
-          E('td', {}, [$btn]),
-          E('td', {}, [
-            E('span', { class: 'count' }, [$value]),
-            T(counter.counter_title)
-          ])
-        ])
-      );
+      var $btn = document.getElementById('btn-saikoh');
       counters[counter.counter_name] = {
         play: function () {
           var source = audioContext.createBufferSource();
@@ -91,6 +82,7 @@
         audioContext.decodeAudioData(data, function (buffer) {
           counters[counter.counter_name].buffer = buffer;
         });
+        $btn.removeAttribute('disabled');
       });
 
       $btn.addEventListener('click', function (e) {

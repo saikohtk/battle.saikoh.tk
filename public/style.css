@@ -23,3 +23,20 @@ html, body {
     justify-content: center;
     align-items: center;
 }
+
+#btn-saikoh {
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    opacity: 1;
+
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: 0;
+    background: none;
+}
+
+#btn-saikoh[disabled] {
+    visibility: hidden;
+    opacity: 0;
+}
