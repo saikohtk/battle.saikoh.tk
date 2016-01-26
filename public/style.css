@@ -42,6 +42,10 @@ html, body {
     opacity: 0;
 }
 
+#btn-saikoh:active {
+    transform: scale(0.98);
+}
+
 #btn-saikoh img {
     height: 100px;
 }
