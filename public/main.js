@@ -2,6 +2,7 @@
   'use strict';
 
   window.AudioContext = window.AudioContext || window.webkitAudioContext;
+  window.navigator.vibrate = window.navigator.vibrate || function () {};
 
   var audioContext = new AudioContext();
 
@@ -90,7 +91,7 @@
       $btn.addEventListener('click', function (e) {
         cmd.countup(counter.counter_name);
         counters[counter.counter_name].play();
-        window.navigator.vibrate(100);
+        window.navigator.vibrate(100);  
       }, false);
       return $elem;
     }, {});
