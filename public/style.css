@@ -1,11 +1,3 @@
-img {
-    height: 100px;
-}
-
-.count {
-    font-size: 50px;
-}
-
 html, body {
     height: 100%;
     margin: 0;
@@ -18,10 +10,19 @@ html, body {
 }
 
 .window-center {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#speaker-info {
+    text-align: center;
 }
 
 #btn-saikoh {
@@ -39,4 +40,8 @@ html, body {
 #btn-saikoh[disabled] {
     visibility: hidden;
     opacity: 0;
+}
+
+#btn-saikoh img {
+    height: 100px;
 }
