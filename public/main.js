@@ -1,6 +1,8 @@
 (function () {
   'use strict';
 
+  window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
   var audioContext = new AudioContext();
 
   function E (tagName, attrs, children) {
