@@ -75,7 +75,7 @@
   }
 
   Counter.prototype.update = function (value) {
-    this.history.push({ value: value, timestamp: new Date() });
+    this.history.unshift({ value: value, timestamp: new Date() });
     if (this.$value) { this.$value.nodeValue = value; }
   };
 
@@ -88,11 +88,16 @@
 
   Counter.prototype.instantaneousSpeed = function () {
     var now = new Date();
-    var speed = this.history.filter(function (event) {
-      return now - event.timestamp <= 1000;
-    }).length;
 
-    return speed;
+    for (var i = this.history.length - 1; i >= 0; i--) {
+      if (now - this.history[i].timestamp > 1000) {
+        this.history.pop();
+      } else {
+        break;
+      }
+    }
+
+    return this.history.length;
   };
 
   //----------
@@ -183,7 +188,7 @@
       }
     },
     title: {
-      text: '瞬間最高'
+      text: ''
     },
     xAxis: {
       type: 'datetime',
@@ -194,7 +199,7 @@
       minRange: 20,
       minTickInterval: 5,
       title: {
-        text: 'Value'
+        text: null
       },
       plotLines: [{
         value: 0,
@@ -228,7 +233,7 @@
           time = (new Date()).getTime(),
           i;
 
-        for (i = -19; i <= 0; i += 1) {
+        for (i = -30; i <= 0; i += 1) {
           data.push({
             x: time + i * 1000,
             y: 0
