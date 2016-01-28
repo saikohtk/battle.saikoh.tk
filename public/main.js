@@ -75,7 +75,7 @@
   }
 
   Counter.prototype.update = function (value) {
-    this.history.push({value: value, timestamp: new Date()});
+    this.history.push({ value: value, timestamp: new Date() });
     if (this.$value) { this.$value.nodeValue = value; }
   };
 
@@ -136,7 +136,7 @@
   var chart = new Highcharts.chart({
     chart: {
       renderTo: 'chart',
-      type: 'area',
+      type: 'areaspline',
       animation: {
         duration: 250
       },
@@ -155,7 +155,7 @@
       }
     },
     plotOptions: {
-      area: {
+      areaspline: {
         fillColor: {
           linearGradient: {
             x1: 0,
