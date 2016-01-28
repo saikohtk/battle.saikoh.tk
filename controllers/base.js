@@ -41,7 +41,7 @@ class BaseController {
   }
 
   _send(type, payload) {
-    this.ws.send(JSON.stringify(Object.assign({}, payload, {type})));
+    this.ws.send(JSON.stringify(Object.assign({}, payload, {type})), {compress: false});
   }
 }
 
