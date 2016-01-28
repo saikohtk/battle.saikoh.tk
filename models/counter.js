@@ -50,6 +50,42 @@ class Counter extends events.EventEmitter {
     this._value = value;
     this.emit('value', value);
   }
+
+  reset(memo) {
+    return this.storeLog('reset', memo).then(() => {
+      redis.set(this.name, 0);
+    });
+  }
+
+  snapshot(memo) {
+    return this.storeLog('snapshot', memo);
+  }
+
+  storeLog(type, memo) {
+    return this._getValue().then((value) => {
+      const history = JSON.stringify({
+        name: this.name,
+        timestamp: Date.now(),
+        value: value,
+        type, memo,
+      });
+      return redis.lpush(`log::${this.name}`, history);
+    });
+  }
+
+  open(memo) {
+    this.storeLog('open', memo);
+    pubsub.emit('admin::open');
+  }
+
+  close(memo) {
+    this.storeLog('close', memo);
+    pubsub.emit('admin::close');
+  }
+
+  getLog() {
+    
+  }
 }
 
 Counter.counters = new Map();
