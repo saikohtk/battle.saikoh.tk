@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --harmony_destructuring --harmony_rest_parameters index.js"
+    "start": "node --harmony_destructuring --harmony_rest_parameters --harmony_default_parameters index.js"
   },
   "repository": {
     "type": "git",
@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/saikoh-tk/saikoh-tk#readme",
   "dependencies": {
+    "config": "^1.19.0",
     "es6-promisify": "^3.0.0",
     "node-static": "^0.7.7",
     "redis": "^2.4.2",
+    "redis-commands": "^1.0.2",
+    "router-line": "^0.2.1",
     "winston": "^2.1.1",
     "ws": "^0.8.1"
   },
