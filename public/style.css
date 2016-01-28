@@ -55,3 +55,7 @@ html, body {
 #counter {
     font-size: 200px;
 }
+
+#chart {
+    height: 100%;
+}

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    #wrapper {
+      background: white;
+    }
+    #btn-saikoh img {
+      height: 300px;
+    }
+  </style>
+  <title>saikoh.tk</title>
+</head>
+<body>
+<div id="wrapper">
+  <div id="chart"></div>
+  <div class="window-center">
+    <button id="btn-saikoh" disabled><img src="/img/saikoh-600.png"></button>
+    <span id="counter"></span>最高
+  </div>
+
+
+</div>
+
+<script src="./jquery-2.2.0.js"></script>
+<script src="./highcharts.js"></script>
+<script src="./reconnecting-websocket.min.js"></script>
+<script src="./main.js"></script>
+</body>
+</html>
