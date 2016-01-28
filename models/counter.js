@@ -54,6 +54,8 @@ class Counter extends events.EventEmitter {
   reset(memo) {
     return this.storeLog('reset', memo).then(() => {
       redis.set(this.name, 0);
+      this.value = 0;
+      pubsub.emit(this.eventName, 0);
     });
   }
 

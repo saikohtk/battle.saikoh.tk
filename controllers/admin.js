@@ -25,6 +25,7 @@ class AdminController {
   }
 
   _onMessage(type, message) {
+    console.log(message);
     switch (type) {
     case 'reset':
       saikoh.reset(message.memo);
