@@ -52,7 +52,7 @@
     }
 
     this.buffer = null;
-
+    this.history = [];
 
     fetchFile("/audio/saikoh.mp3").then(function (data) {
       audioContext.decodeAudioData(data, function (buffer) {
@@ -75,6 +75,7 @@
   }
 
   Counter.prototype.update = function (value) {
+    this.history.push({value: value, timestamp: new Date()});
     if (this.$value) { this.$value.nodeValue = value; }
   };
 
@@ -83,6 +84,15 @@
     source.connect(gainNode);
     source.buffer = this.buffer;
     source.start();
+  };
+
+  Counter.prototype.instantaneousSpeed = function () {
+    var now = new Date();
+    var speed = this.history.filter(function (event) {
+      return now - event.timestamp <= 1000;
+    }).length;
+
+    return speed;
   };
 
   //----------
@@ -116,6 +126,6 @@
     }
   }
 
-
+  setInterval(function () { counter.instantaneousSpeed(); }, 1000);
 
 })();
