@@ -5,6 +5,9 @@
   window.navigator.vibrate = window.navigator.vibrate || function () {};
 
   var audioContext = new AudioContext();
+  var gainNode = audioContext.createGain();
+  gainNode.gain.value = 0.8;
+  gainNode.connect(audioContext.destination)
 
   function E (tagName, attrs, children) {
     var el = document.createElement(tagName);
@@ -70,7 +73,7 @@
   counters['saikoh'] = {
     play: function () {
       var source = audioContext.createBufferSource();
-      source.connect(audioContext.destination);
+      source.connect(gainNode);
       source.buffer = this.buffer;
       source.start();
     },
