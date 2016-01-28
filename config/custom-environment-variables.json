@@ -1,3 +1,4 @@
 {
+  "port": "PORT",
   "redis": "REDIS_URL"
 }

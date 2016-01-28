@@ -8,9 +8,13 @@ const pubsub = require('./pubsub');
 const redis = require('./redis');
 
 class Counter extends events.EventEmitter {
-  constructor(name) {
+  constructor(name, title) {
+    if (Counter.counters.has(name)) {
+      return Counter.counters.get(name);
+    }
     super();
     this.name = name;
+    this.title = title;
     this._value = 0;
 
     this.eventName = `counter::${name}`;
@@ -19,6 +23,8 @@ class Counter extends events.EventEmitter {
       this.value = value;
     });
     pubsub.on(this.eventName, this._onChange.bind(this));
+    Counter.counters.set(name, this);
+    return this;
   }
 
   _onChange(value) {
@@ -45,6 +51,8 @@ class Counter extends events.EventEmitter {
     this.emit('value', value);
   }
 }
+
+Counter.counters = new Map();
 
 module.exports = Counter;
 
