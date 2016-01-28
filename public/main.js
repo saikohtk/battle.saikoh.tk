@@ -7,7 +7,7 @@
   var audioContext = new AudioContext();
   var gainNode = audioContext.createGain();
   gainNode.gain.value = 0.8;
-  gainNode.connect(audioContext.destination)
+  gainNode.connect(audioContext.destination);
 
   function E (tagName, attrs, children) {
     var el = document.createElement(tagName);
@@ -26,7 +26,69 @@
     return document.createTextNode(text);
   }
 
-  var counters = [];
+  //----------
+
+  function fetchFile (path) {
+    return new Promise(function(resolve, reject) {
+      var request = new XMLHttpRequest();
+      request.open('GET', path, true);
+      request.responseType = 'arraybuffer';
+      request.onload = function () {
+        resolve(request.response);
+      };
+      request.onerror = function () {
+        reject(err)
+      };
+
+      request.send();
+    });
+  }
+
+  function Counter (data) {
+    this.$btn = document.getElementById('btn-saikoh');
+    if (document.getElementById('counter')) {
+      this.$value = T(data.counter_value.toString());
+      document.getElementById('counter').appendChild(this.$value);
+    }
+
+    this.buffer = null;
+
+
+    fetchFile("/audio/saikoh.mp3").then(function (data) {
+      audioContext.decodeAudioData(data, function (buffer) {
+        counter.buffer = buffer;
+      });
+      this.$btn.removeAttribute('disabled');
+    }.bind(this));
+
+    var onClick = function (e) {
+      cmd.countup('saikoh');
+      this.play();
+      window.navigator.vibrate(100);
+    }.bind(this);
+    this.$btn.addEventListener('touchstart', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      onClick();
+    }, false);
+    this.$btn.addEventListener('click', onClick, false);
+  }
+
+  Counter.prototype.update = function (value) {
+    if (this.$value) { this.$value.nodeValue = value; }
+  };
+
+  Counter.prototype.play = function () {
+    var source = audioContext.createBufferSource();
+    source.connect(gainNode);
+    source.buffer = this.buffer;
+    source.start();
+  };
+
+  //----------
+
+
+  var counter = null;
 
   var cmd = function () {
     var ws = new ReconnectingWebSocket('ws://' + window.location.host);
@@ -44,60 +106,16 @@
   function onSignal (signal) {
     switch (signal.type) {
     case 'counters':
-      // construct(signal.counters);
+      if (counter === null) {
+        counter = new Counter(signal.counters[0]);
+      }
       break;
     case 'changed':
-      counters['saikoh'].update(signal.counter_value);
+      counter.update(signal.counter_value);
       break;
     }
   }
 
-  function fetchAudio (path) {
-    return new Promise(function(resolve, reject) {
-      var request = new XMLHttpRequest();
-      request.open('GET', path, true);
-      request.responseType = 'arraybuffer';
-      request.onload = function () {
-        resolve(request.response);
-      };
-      request.onerror = function () {
-        reject(err)
-      };
 
-      request.send();
-    });
-  }
-
-  // var $value = T(counter.counter_value.toString());
-  var $btn = document.getElementById('btn-saikoh');
-  counters['saikoh'] = {
-    play: function () {
-      var source = audioContext.createBufferSource();
-      source.connect(gainNode);
-      source.buffer = this.buffer;
-      source.start();
-    },
-    update: function (value) {
-      // $value.nodeValue = value;
-    }
-  };
-
-  fetchAudio("/audio/saikoh.mp3").then(function (data) {
-    audioContext.decodeAudioData(data, function (buffer) {
-      counters['saikoh'].buffer = buffer;
-    });
-    $btn.removeAttribute('disabled');
-  });
-
-  function onClick (e) {
-    cmd.countup('saikoh');
-    counters['saikoh'].play();
-    window.navigator.vibrate(100);
-  }
-
-  $btn.addEventListener('touchstart', function (e) {
-    e.stopPropagation(); e.preventDefault(); onClick();
-  }, false);
-  $btn.addEventListener('click', onClick, false);
 
 })();

@@ -51,3 +51,7 @@ html, body {
 #btn-saikoh img {
     height: 100px;
 }
+
+#counter {
+    font-size: 200px;
+}
