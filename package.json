@@ -21,7 +21,7 @@
   "dependencies": {
     "config": "^3.3.6",
     "es6-promisify": "^3.0.0",
-    "node-static": "^0.7.7",
+    "node-static": "^0.7.11",
     "redis": "^3.1.1",
     "redis-commands": "^1.0.2",
     "router-line": "^0.2.1",

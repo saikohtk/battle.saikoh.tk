@@ -156,7 +156,7 @@ node-notifier@^8.0.1:
     uuid "^8.3.0"
     which "^2.0.2"
 
-node-static@^0.7.7:
+node-static@^0.7.11:
   version "0.7.11"
   resolved "https://registry.yarnpkg.com/node-static/-/node-static-0.7.11.tgz#60120d349f3cef533e4e820670057eb631882e7f"
   integrity sha512-zfWC/gICcqb74D9ndyvxZWaI1jzcoHmf4UTHWQchBNuNMxdBLJMDiUgZ1tjGLEIe/BMhj2DxKD8HOuc2062pDQ==
