@@ -25,7 +25,7 @@
     "redis": "^3.1.1",
     "redis-commands": "^1.0.2",
     "router-line": "^0.2.1",
-    "winston": "^2.1.1",
+    "winston": "^2.4.5",
     "ws": "^7.4.5"
   },
   "devDependencies": {
