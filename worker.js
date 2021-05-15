@@ -31,9 +31,9 @@ router.GET('/api/feed', FeedController);
 
 const wss = new WebSocketServer({ server });
 
-wss.on('connection', (ws) => {
+wss.on('connection', (ws, req) => {
   winston.info('connected');
-  const match = router.route(ws.upgradeReq.method, ws.upgradeReq.url);
+  const match = router.route(req.method, req.url);
   if (match === undefined) { ws.close(); return; }
   const {params, value} = match;
 
