@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/saikoh-tk/saikoh-tk#readme",
   "dependencies": {
-    "config": "^1.19.0",
+    "config": "^3.3.6",
     "es6-promisify": "^3.0.0",
     "node-static": "^0.7.7",
     "redis": "^3.1.1",
