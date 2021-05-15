@@ -29,13 +29,7 @@
     "ws": "^7.4.5"
   },
   "devDependencies": {
-    "browserify": "^12.0.1",
-    "coffee-script": "^1.10.0",
-    "coffeeify": "^1.2.0",
-    "coffeex": "^4.0.3",
-    "node-dev": "^7.0.0",
-    "react": "^0.14.3",
-    "watchify": "^4.0.0"
+    "node-dev": "^7.0.0"
   },
   "engines": {
     "node": ">=5.5.0"
