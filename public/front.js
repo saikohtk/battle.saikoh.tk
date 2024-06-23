@@ -55,7 +55,7 @@
   var counter = null;
 
   var cmd = function () {
-    var ws = new ReconnectingWebSocket('ws://' + window.location.host + '/api/feed');
+    var ws = new ReconnectingWebSocket(window.location.protocol === 'https:' ? 'wss://' : 'ws://' + window.location.host + '/api/feed');
     ws.onmessage = function (e) {
       var signal = JSON.parse(e.data);
       onSignal(signal);
