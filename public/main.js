@@ -105,7 +105,7 @@
   var counter = null;
 
   var cmd = function () {
-    var ws = new ReconnectingWebSocket(window.location.protocol === 'https:' ? 'wss://' : 'ws://' + window.location.host + '/api/button');
+    var ws = new ReconnectingWebSocket((window.location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.host + '/api/button');
     ws.onmessage = function (e) {
       var signal = JSON.parse(e.data);
       onSignal(signal);
