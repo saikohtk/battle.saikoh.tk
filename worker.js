@@ -6,22 +6,21 @@ const http = require('http');
 const winston = require('winston');
 const promisify = require("es6-promisify");
 const ws = require('ws');
-const StaticServer = require('node-static').Server;
+const StaticServer = require('serve-static')
 const WebSocketServer = ws.Server;
 const Router = require('router-line').Router;
 
 winston.level = 'debug';
 
 const fileServer = new StaticServer(
-  path.join(__dirname, './public'),
-  { cache: 0 }
+  path.join(__dirname, './public')
 );
 
 const router = new Router();
 
 const PORT = config.get('port');
 const server = http.createServer((req, res) => {
-  fileServer.serve(req, res);
+  fileServer(req, res);
 });
 
 const ButtonController = require('./controllers/button');
