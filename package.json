@@ -24,7 +24,7 @@
     "redis": "^3.1.1",
     "redis-commands": "^1.0.2",
     "router-line": "^0.2.1",
-    "serve-static": "^1.15.0",
+    "serve-static": "^1.16.0",
     "winston": "^2.4.5",
     "ws": "^7.5.10"
   },
